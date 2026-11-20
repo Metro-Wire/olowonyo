@@ -20,3 +20,90 @@ body {
         background-repeat: no-repeat;
     }
 }
+
+/* OLÓWÓNYO's lettering is baked into wallpaper.jpg.  This square, invisible
+   overlay uses the original vector outlines and stays aligned with the
+   wallpaper's existing cover/contain behavior at every viewport width. */
+.wallpaper-stage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: max(100vw, 100vh);
+    height: max(100vw, 100vh);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.wordmark-effects {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.wordmark-trigger {
+    position: absolute;
+    z-index: 1;
+    left: 14%;
+    top: 47.6%;
+    width: 72%;
+    height: 9.1%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.wordmark-trigger:focus-visible {
+    outline: 2px solid #b68a32;
+    outline-offset: 3px;
+}
+
+.wordmark-animated {
+    opacity: 0;
+    transform-origin: 185px 197px;
+}
+
+.wordmark-gold-sweep {
+    opacity: 0;
+}
+
+.wallpaper-stage.is-shining .wordmark-animated {
+    animation: wordmark-enlarge 2.4s ease-in-out both;
+}
+
+.wallpaper-stage.is-shining .wordmark-gold-sweep {
+    animation: wordmark-sweep 2.4s linear both;
+}
+
+@keyframes wordmark-enlarge {
+    0% { transform: scale(1); opacity: 0; }
+    8% { opacity: 1; }
+    18%, 76% { transform: scale(1.028); opacity: 1; }
+    91% { transform: scale(1.012); opacity: 1; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+@keyframes wordmark-sweep {
+    0%, 7% { transform: translateX(0); opacity: 0; }
+    13% { opacity: 1; }
+    83% { transform: translateX(465px); opacity: 1; }
+    94%, 100% { transform: translateX(465px); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .wallpaper-stage {
+        width: min(100vw, 100vh);
+        height: min(100vw, 100vh);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wallpaper-stage.is-shining .wordmark-animated,
+    .wallpaper-stage.is-shining .wordmark-gold-sweep {
+        animation: none;
+    }
+}
